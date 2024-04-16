@@ -1,6 +1,6 @@
-## Floorp Private Components
+# Noraneko Component
 
-- This repository contains the private components of the Floorp project.
+This Component from Floorp-private-components
 
 ## License
 
