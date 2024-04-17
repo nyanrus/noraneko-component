@@ -1,4 +1,4 @@
-import { BrowserManagerSidebar } from "resource:///modules/BrowserManagerSidebar.sys.mjs";
+import { BrowserManagerSidebar } from "resource://noraneko/modules/BrowserManagerSidebar.sys.mjs";
 
 class BrowserManagerSidebarPanelWindowUtils {
   get STATIC_SIDEBAR_DATA() {
