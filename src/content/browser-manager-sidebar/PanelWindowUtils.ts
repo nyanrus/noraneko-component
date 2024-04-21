@@ -1,8 +1,12 @@
-import { BrowserManagerSidebar } from "@content/browser-manager-sidebar/BrowserManagerSidebar";
+import type { CBrowserManagerSidebar } from "@content/browser-manager-sidebar";
 
-class CPanelWindowUtils {
+export class PanelWindowUtils {
+  private bmsInstance: CBrowserManagerSidebar;
+  constructor(bmsInstance: CBrowserManagerSidebar) {
+    this.bmsInstance = bmsInstance;
+  }
   get STATIC_SIDEBAR_DATA() {
-    return BrowserManagerSidebar.STATIC_SIDEBAR_DATA;
+    return this.bmsInstance.utils.STATIC_SIDEBAR_DATA;
   }
 
   get BROWSER_SIDEBAR_DATA() {
@@ -235,7 +239,3 @@ class CPanelWindowUtils {
     this.saveZoomLevel(webpanelId, zoomLevel);
   }
 }
-
-const PanelWindowUtils = new CPanelWindowUtils();
-
-export { PanelWindowUtils };
