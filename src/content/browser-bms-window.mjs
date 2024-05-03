@@ -1,14 +1,14 @@
 /* -*- indent-tabs-mode: nil; js-indent-level: 2 -*- */
 
-var { BrowserManagerSidebarPanelWindowUtils } = ChromeUtils.importESModule(
-  "resource:///modules/BrowserManagerSidebarPanelWindowUtils.sys.mjs"
+const { BrowserManagerSidebarPanelWindowUtils } = ChromeUtils.importESModule(
+  "resource:///modules/BrowserManagerSidebarPanelWindowUtils.sys.mjs",
 );
 
 // global variables
 
 export const EXPORTED_SYMBOLS = ["gBmsWindow"];
 
-export var gBmsWindow = {
+export const gBmsWindow = {
   _initialized: false,
   currentURL: new URL(window.location.href),
 
@@ -33,8 +33,9 @@ export var gBmsWindow = {
   },
 
   get webapnelData() {
-    let id = this.webpanelId;
-    let data = BrowserManagerSidebarPanelWindowUtils.BROWSER_SIDEBAR_DATA.data;
+    const id = this.webpanelId;
+    const data =
+      BrowserManagerSidebarPanelWindowUtils.BROWSER_SIDEBAR_DATA.data;
     return data[id];
   },
 
@@ -43,8 +44,8 @@ export var gBmsWindow = {
       return;
     }
 
-    let webPanelId = new URL(window.location.href).searchParams.get(
-      "floorpWebPanelId"
+    const webPanelId = new URL(window.location.href).searchParams.get(
+      "floorpWebPanelId",
     );
     if (!webPanelId) {
       return;
@@ -61,10 +62,10 @@ export var gBmsWindow = {
   },
 
   createWebpanelWindow() {
-    let webPanelId = this.currentURL.searchParams.get("floorpWebPanelId");
-    let userContextId = this.userContextId;
-    let userAgent = this.userAgent;
-    let loadURL = this.loadURL;
+    const webPanelId = this.currentURL.searchParams.get("floorpWebPanelId");
+    const userContextId = this.userContextId;
+    const userAgent = this.userAgent;
+    const loadURL = this.loadURL;
 
     this.mainWindow.setAttribute("BSM-window", "true");
     this.mainWindow.setAttribute("BMS-usercontextid", userContextId);
@@ -90,14 +91,14 @@ export var gBmsWindow = {
           window,
           webPanelId,
           userContextId,
-          false
+          false,
         );
       }, 0);
     }
 
     // Resolve the issue that open url by anoter application and that is not loaded on main window.
     window.setTimeout(() => {
-      let tab = window.gBrowser.addTrustedTab("about:blank");
+      const tab = window.gBrowser.addTrustedTab("about:blank");
       window.gBrowser.removeTab(tab);
     }, 0);
 
@@ -105,7 +106,7 @@ export var gBmsWindow = {
     this.mainWindow.setAttribute(
       "chromehidden",
       "toolbar",
-      "menubar directories extrachrome chrome,location=yes,centerscreen,dialog=no,resizable=yes,scrollbars=yes"
+      "menubar directories extrachrome chrome,location=yes,centerscreen,dialog=no,resizable=yes,scrollbars=yes",
     );
 
     const BMSSyleElement = document.createElement("style");
@@ -114,7 +115,7 @@ export var gBmsWindow = {
         `;
     document.head.appendChild(BMSSyleElement);
 
-    let setZoomLebelInterval = window.setInterval(() => {
+    const setZoomLebelInterval = window.setInterval(() => {
       if (window.closed) {
         window.clearInterval(setZoomLebelInterval);
         return;
@@ -125,7 +126,7 @@ export var gBmsWindow = {
   },
 
   setZoomLevel() {
-    let zoomLevel = gBmsWindow.webapnelData.zoomLevel;
+    const zoomLevel = gBmsWindow.webapnelData.zoomLevel;
     if (zoomLevel) {
       window.ZoomManager.zoom = zoomLevel;
     }
