@@ -13,7 +13,7 @@ import {
   getWorkspaceIconUrl,
 } from "./modules/workspaces/WorkspacesService.mjs";
 
-import { gFloorpContextMenu } from "chrome://browser/content/browser-context-menu.mjs";
+import { gFloorpContextMenu } from "@content/browser-context-menu.mjs";
 
 /* Mozilla's ES Module. It can be impoted via ChromeUtils */
 var { CustomizableUI } = ChromeUtils.importESModule(

@@ -2,5 +2,5 @@
 # vim: set filetype=python:
 
 DIRS += [
-    "browser"
+    "src/components",
 ]
