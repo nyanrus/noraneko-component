@@ -1,4 +1,4 @@
-import type { CBrowserManagerSidebar } from "@content/browser-manager-sidebar";
+import type { CBrowserManagerSidebar } from "@content/browser/browser-manager-sidebar";
 
 export class PanelWindowUtils {
   private bmsInstance: CBrowserManagerSidebar;
