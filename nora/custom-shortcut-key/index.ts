@@ -5,6 +5,10 @@ import { checkIsSystemShortcut } from "./utils";
 export class CustomShortcutKey {
   private static instance: CustomShortcutKey;
   private static windows: Window[] = [];
+
+  //this boolean disable shortcut of csk
+  //useful for registering
+  disable_csk = false;
   static getInstance() {
     if (!CustomShortcutKey.instance) {
       CustomShortcutKey.instance = new CustomShortcutKey();
@@ -25,8 +29,8 @@ export class CustomShortcutKey {
   }
 
   private initCSKData() {
-    this.cskData = [
-      {
+    this.cskData = {
+      "gecko-open-new-window": {
         modifiers: {
           ctrl: true,
           shift: true,
@@ -34,36 +38,15 @@ export class CustomShortcutKey {
           meta: false,
         },
         key: "V",
-        command: "gecko-open-new-window",
       },
-    ];
+    };
   }
   private startHandleShortcut(_window: Window) {
     _window.addEventListener("keydown", (ev) => {
-      //@ts-expect-error
-      if (ev.key === "Escape") {
+      if (this.disable_csk) {
+        console.log("disable-csk");
         return;
       }
-
-      //@ts-expect-error
-      if (ev.key === "Tab") {
-        return;
-      }
-
-      //@ts-expect-error
-      if (!ev.altKey && !ev.ctrlKey && !ev.shiftKey && !ev.metaKey) {
-        //@ts-expect-error
-        if (ev.key === "Delete" || ev.key === "Backspace") {
-          // Avoid triggering back-navigation.
-          //ev.preventDefault();
-          //TODO: reset key input
-          return;
-        }
-      }
-
-      // on register
-      //ev.preventDefault();
-
       if (
         //@ts-expect-error
         ["Control", "Alt", "Meta", "Shift"].filter((k) => ev.key.includes(k))
@@ -74,7 +57,7 @@ export class CustomShortcutKey {
           return;
         }
 
-        for (const shortcutDatum of this.cskData) {
+        for (const [key, shortcutDatum] of Object.entries(this.cskData)) {
           const { alt, ctrl, meta, shift } = shortcutDatum.modifiers;
           if (
             //@ts-expect-error
@@ -88,7 +71,7 @@ export class CustomShortcutKey {
             //@ts-expect-error
             ev.key === shortcutDatum.key
           ) {
-            commands[shortcutDatum.command].command(ev);
+            commands[key].command(ev);
           }
         }
       }

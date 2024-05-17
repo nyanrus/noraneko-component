@@ -66,7 +66,8 @@ export function floorpCSKToNora(data: FloorpCSKData): CSKData {
   return zCSKData.parse(arr);
 }
 
-export const zCSKData = z.array(
+export const zCSKData = z.record(
+  zodEnumFromObjKeys(commands),
   z.object({
     modifiers: z.object({
       alt: z.boolean(),
@@ -75,7 +76,6 @@ export const zCSKData = z.array(
       shift: z.boolean(),
     }),
     key: z.string(),
-    command: zodEnumFromObjKeys(commands),
   }),
 );
 
